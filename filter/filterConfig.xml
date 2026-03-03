@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filterConfig SYSTEM "../../../../lib/pkp/dtd/filterConfig.dtd">
+
+<!--
+  * plugins/importexport/trdizin/filter/filterConfig.xml
+  *
+  * TRDizin JSON Export Plugin for OJS
+  *
+  * Filter Configuration.
+  -->
+<filterConfig>
+	<filterGroups>
+		<!-- TRDizin JSON article output -->
+		<filterGroup
+			symbolic="article=>trdizin-json"
+			displayName="plugins.importexport.trdizin.displayName"
+			description="plugins.importexport.trdizin.description"
+			inputType="class::classes.submission.Submission"
+			outputType="primitive::string" />
+	</filterGroups>
+	<filters>
+		<!-- TRDizin JSON article output -->
+		<filter
+			inGroup="article=>trdizin-json"
+			class="plugins.importexport.trdizin.filter.TRDizinJsonFilter"
+			isTemplate="0" />
+	</filters>
+</filterConfig>
