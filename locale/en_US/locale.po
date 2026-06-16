@@ -134,6 +134,18 @@ msgstr "Institution"
 msgid "plugins.importexport.trdizin.preview.noArticles"
 msgstr "No published articles found in this issue."
 
+msgid "plugins.importexport.trdizin.preview.selected"
+msgstr "Selected"
+
+msgid "plugins.importexport.trdizin.preview.selectAll"
+msgstr "Select All"
+
+msgid "plugins.importexport.trdizin.preview.downloadSelected"
+msgstr "Download Selected"
+
+msgid "plugins.importexport.trdizin.preview.downloadAll"
+msgstr "Download All"
+
 msgid "plugins.importexport.trdizin.warning.orcidMissing"
 msgstr "ORCID missing for {$authorName}. Please update from the OJS dashboard."
 

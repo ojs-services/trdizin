@@ -10,8 +10,8 @@
 <version>
 	<application>trdizin</application>
 	<type>plugins.importexport</type>
-	<release>1.0.0.0</release>
-	<date>2026-03-04</date>
+	<release>1.1.0.0</release>
+	<date>2026-06-16</date>
 	<lazy-load>1</lazy-load>
 	<class>TRDizinExportPlugin</class>
 	<compatibility application="ojs2">

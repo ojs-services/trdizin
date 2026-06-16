@@ -16,11 +16,13 @@ The exported JSON contains all fields required by TRDizin, including `publicatio
 
 | OJS Version | Plugin Version | Status |
 |-------------|---------------|--------|
+| 3.3.x       | 1.1.0         | Supported |
 | 3.3.x       | 1.0.0         | Supported |
 
 ## Features
 
 - **TRDizin-compliant JSON export** with all required metadata fields
+- **Selective article export** — choose individual articles or export the entire issue
 - **Interactive preview page** with article cards showing complete metadata
 - **Validation warnings** for missing ORCID, affiliations, DOI, PDF, references, and abstracts
 - **Section-to-publication type mapping** configured once in settings, overridable per article
@@ -70,7 +72,8 @@ These settings are applied automatically when previewing and exporting issues. Y
 3. Click **Preview** for the issue you want to export
 4. Review article cards with validation warnings
 5. Adjust article type and subject areas per article if needed
-6. Click **Download JSON** to export
+6. **Select specific articles** using the checkboxes, or use **Select All** to check every article
+7. Click **Download Selected** to export only checked articles, or **Download All** to export the entire issue
 
 ### Command Line Interface
 

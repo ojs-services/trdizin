@@ -30,6 +30,17 @@
 				<div class="trd-st-lbl">{translate key="plugins.importexport.trdizin.issues.numArticles"}</div>
 			</div>
 		</div>
+		<div class="trd-st trd-st--sel">
+			<div class="trd-st-ico trd-st-ico--sel">&#9745;</div>
+			<div>
+				<div class="trd-st-val" id="trd-sel-count">0</div>
+				<div class="trd-st-lbl">{translate key="plugins.importexport.trdizin.preview.selected"}</div>
+			</div>
+			<label class="trd-sel-all" title="{translate key="plugins.importexport.trdizin.preview.selectAll"}">
+				<input type="checkbox" id="trd-select-all" />
+				<span>{translate key="plugins.importexport.trdizin.preview.selectAll"}</span>
+			</label>
+		</div>
 		{if $totalWarnings > 0}
 			<div class="trd-st trd-st--w">
 				<div class="trd-st-ico trd-st-ico--w">&#9888;</div>
@@ -62,6 +73,10 @@
 				<div class="trd-card">
 					{* Card Header *}
 					<div class="trd-card-hd">
+						<label class="trd-card-chk">
+							<input type="checkbox" name="selectedArticles[]" value="{$article.index}" class="trd-article-cb" />
+							<span class="trd-chk-box"></span>
+						</label>
 						<div class="trd-card-n">{$article.index + 1}</div>
 						<div class="trd-card-tw">
 							<h3 class="trd-card-t">{$article.title|escape}</h3>
@@ -124,15 +139,11 @@
 								</div>
 								{foreach from=$article.abstractContents item=content}
 									{if !empty($content.keywords)}
-										<div class="trd-kw-blk">
-											<div class="trd-kw-lang">
-												<span class="trd-loc">{$content.locale|substr:0:2|upper}</span>
-											</div>
-											<div class="trd-kw-list">
-												{foreach from=$content.keywords item=keyword}
-													<span class="trd-kw-tag">{$keyword|escape}</span>
-												{/foreach}
-											</div>
+										<div class="trd-kw-row">
+											<span class="trd-loc">{$content.locale|substr:0:2|upper}</span>
+											{foreach from=$content.keywords item=keyword}
+												<span class="trd-kw-tag">{$keyword|escape}</span>
+											{/foreach}
 										</div>
 									{/if}
 								{/foreach}
@@ -265,10 +276,16 @@
 			{* Download Bar *}
 			<div class="trd-dl">
 				<span class="trd-dl-info">{$articlesData|@count} {translate key="plugins.importexport.trdizin.issues.numArticles"}</span>
-				<button type="submit" class="trd-dl-btn">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-					{translate key="plugins.importexport.trdizin.preview.downloadJson"}
-				</button>
+				<div class="trd-dl-btns">
+					<button type="submit" name="exportMode" value="selected" class="trd-dl-btn trd-dl-btn--sel" id="trd-btn-selected" disabled="disabled">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+						<span id="trd-btn-sel-text">{translate key="plugins.importexport.trdizin.preview.downloadSelected"}</span>
+					</button>
+					<button type="submit" name="exportMode" value="all" class="trd-dl-btn">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+						{translate key="plugins.importexport.trdizin.preview.downloadAll"}
+					</button>
+				</div>
 			</div>
 		</form>
 	{/if}
@@ -277,6 +294,8 @@
 	<div class="trd-footer">
 		{translate key="plugins.importexport.trdizin.footer"}
 	</div>
+
+	<span id="trd-i18n-dlsel" style="display:none">{translate key="plugins.importexport.trdizin.preview.downloadSelected"}</span>
 </div>
 
 {/block}

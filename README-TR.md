@@ -16,11 +16,13 @@ Dışa aktarılan JSON, TRDizin'in gerektirdiği tüm alanları içerir: çok di
 
 | OJS Sürümü | Eklenti Sürümü | Durum |
 |------------|---------------|-------|
+| 3.3.x      | 1.1.0         | Destekleniyor |
 | 3.3.x      | 1.0.0         | Destekleniyor |
 
 ## Özellikler
 
 - **TRDizin uyumlu JSON dışa aktarma** — gerekli tüm meta veri alanlarıyla
+- **Seçmeli makale dışa aktarma** — istediğiniz makaleleri seçerek veya tüm sayıyı dışa aktarın
 - **Etkileşimli önizleme sayfası** — eksiksiz meta veriler gösteren makale kartları
 - **Doğrulama uyarıları** — eksik ORCID, kurum bilgisi, DOI, PDF, kaynakça ve özetler için
 - **Bölüm-yayın türü eşlemesi** — ayarlarda bir kez yapılandırılır, makale bazında değiştirilebilir
@@ -70,7 +72,8 @@ Bu ayarlar, sayıları önizlerken ve dışa aktarırken otomatik olarak uygulan
 3. Dışa aktarmak istediğiniz sayı için **Önizle** butonuna tıklayın
 4. Doğrulama uyarıları ile makale kartlarını inceleyin
 5. Gerekirse makale bazında yayın türünü ve konu alanlarını ayarlayın
-6. **JSON İndir** butonuna tıklayarak dışa aktarın
+6. **Onay kutularıyla istediğiniz makaleleri seçin** veya **Tümünü Seç** ile tüm makaleleri işaretleyin
+7. **Seçilenleri İndir** ile sadece seçili makaleleri, **Tümünü İndir** ile tüm sayıyı dışa aktarın
 
 ### Komut Satırı Arayüzü (CLI)
 

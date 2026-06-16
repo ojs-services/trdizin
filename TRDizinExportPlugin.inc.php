@@ -160,6 +160,12 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			array('contexts' => array('backend'))
 		);
 
+		$templateMgr->addJavaScript(
+			'trdizinPreview',
+			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/preview.js',
+			array('contexts' => array('backend'))
+		);
+
 		$templateMgr->assign(array(
 			'issue' => $issue,
 			'articlesData' => $articlesData,
@@ -385,9 +391,20 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 		// Get article data from OJS
 		$articlesData = $this->getArticlesDataForIssue($request, $context, $issue, $sectionMapping);
 
+		// Check if exporting selected articles only
+		$exportMode = $request->getUserVar('exportMode');
+		$selectedArticles = $request->getUserVar('selectedArticles');
+		$selectedIndices = null;
+		if ($exportMode === 'selected' && is_array($selectedArticles)) {
+			$selectedIndices = array_map('intval', $selectedArticles);
+		}
+
 		// Build JSON output using shared buildArticleJson method
 		$jsonOutput = array();
 		foreach ($articlesData as $idx => $articleData) {
+			if ($selectedIndices !== null && !in_array($idx, $selectedIndices)) {
+				continue;
+			}
 			$overrides = isset($articlesPost[$idx]) ? $articlesPost[$idx] : array();
 			$jsonOutput[] = $this->buildArticleJson($articleData, $overrides);
 		}

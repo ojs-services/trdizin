@@ -134,6 +134,18 @@ msgstr "Kurum"
 msgid "plugins.importexport.trdizin.preview.noArticles"
 msgstr "Bu sayıda yayınlanmış makale bulunamadı."
 
+msgid "plugins.importexport.trdizin.preview.selected"
+msgstr "Seçili"
+
+msgid "plugins.importexport.trdizin.preview.selectAll"
+msgstr "Tümünü Seç"
+
+msgid "plugins.importexport.trdizin.preview.downloadSelected"
+msgstr "Seçilenleri İndir"
+
+msgid "plugins.importexport.trdizin.preview.downloadAll"
+msgstr "Tümünü İndir"
+
 msgid "plugins.importexport.trdizin.warning.orcidMissing"
 msgstr "{$authorName} için ORCID bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
 
