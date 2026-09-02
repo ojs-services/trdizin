@@ -13,6 +13,4 @@
  * @brief Wrapper for TRDizin JSON export plugin.
  */
 
-require_once('TRDizinExportPlugin.inc.php');
-
-return new TRDizinExportPlugin();
+return new \APP\plugins\importexport\trdizin\TRDizinExportPlugin();

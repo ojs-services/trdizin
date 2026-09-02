@@ -9,7 +9,7 @@
 		$('#trdizinSettingsForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
 	{rdelim});
 </script>
-<form class="pkp_form" id="trdizinSettingsForm" method="post" action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" plugin="TRDizinExportPlugin" category="importexport" verb="save"}">
+<form class="pkp_form" id="trdizinSettingsForm" method="post" action="{url router=PKP\core\PKPApplication::ROUTE_COMPONENT op="manage" plugin="TRDizinExportPlugin" category="importexport" verb="save"}">
 	{csrf}
 
 	{fbvFormArea id="trdizinSettingsFormArea"}

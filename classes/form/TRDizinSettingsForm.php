@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file plugins/importexport/trdizin/classes/form/TRDizinSettingsForm.inc.php
+ * @file plugins/importexport/trdizin/classes/form/TRDizinSettingsForm.php
  *
  * TRDizin JSON Export Plugin for OJS
  *
@@ -11,7 +11,13 @@
  * @brief Form for journal managers to setup TRDizin plugin
  */
 
-import('lib.pkp.classes.form.Form');
+namespace APP\plugins\importexport\trdizin\classes\form;
+
+use APP\facades\Repo;
+use APP\template\TemplateManager;
+use PKP\form\Form;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorPost;
 
 class TRDizinSettingsForm extends Form {
 
@@ -62,10 +68,11 @@ class TRDizinSettingsForm extends Form {
 		$contextId = $this->_contextId;
 
 		// Get journal sections
-		$sectionDao = DAORegistry::getDAO('SectionDAO');
-		$sectionsIterator = $sectionDao->getByContextId($contextId);
+		$sectionsIterator = Repo::section()->getCollector()
+			->filterByContextIds(array($contextId))
+			->getMany();
 		$sections = array();
-		while ($section = $sectionsIterator->next()) {
+		foreach ($sectionsIterator as $section) {
 			$sections[] = array(
 				'id' => $section->getId(),
 				'title' => $section->getLocalizedTitle(),

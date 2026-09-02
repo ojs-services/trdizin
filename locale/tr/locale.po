@@ -6,244 +6,244 @@ msgstr ""
 "PO-Revision-Date: 2026-03-03T00:00:00+00:00\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: en_US\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "plugins.importexport.trdizin.displayName"
-msgstr "TRDizin JSON Export"
+msgstr "TRDizin JSON Dışa Aktarma"
 
 msgid "plugins.importexport.trdizin.description"
-msgstr "Export journal issues in TRDizin JSON format."
+msgstr "Dergi sayılarını TRDizin JSON formatında dışa aktarır."
 
 msgid "plugins.importexport.trdizin.settings"
-msgstr "Settings"
+msgstr "Ayarlar"
 
 msgid "plugins.importexport.trdizin.settings.sectionMapping"
-msgstr "Journal Sections to TRDizin Type Mapping"
+msgstr "Dergi Bölümleri ile TRDizin Bölüm Eşleşmesi"
 
 msgid "plugins.importexport.trdizin.settings.sectionMappingDescription"
-msgstr "Map your journal sections to the corresponding TRDizin publication types."
+msgstr "Derginizdeki bölümlerin TRDizindeki hangi bölümlerle eşleştiğini belirtiniz."
 
 msgid "plugins.importexport.trdizin.settings.columnJournalSections"
-msgstr "Journal Sections"
+msgstr "Dergi Bölümleri"
 
 msgid "plugins.importexport.trdizin.settings.columnTrdizinTypes"
-msgstr "TRDizin Article Types"
+msgstr "TRDizin Makale Türleri"
 
 msgid "plugins.importexport.trdizin.footer"
-msgstr "Developed by <a href=\"https://ojsdergi.com\" target=\"_blank\" rel=\"noopener\">ojsdergi.com</a>"
+msgstr "<a href=\"https://ojsdergi.com\" target=\"_blank\" rel=\"noopener\">ojsdergi.com</a> tarafından geliştirilmiştir."
 
 msgid "plugins.importexport.trdizin.settings.defaultSubjects"
-msgstr "Default Subject Areas"
+msgstr "Varsayılan Konu Alanları"
 
 msgid "plugins.importexport.trdizin.settings.defaultSubjectsDescription"
-msgstr "Select default subject areas that will be pre-selected in the preview page. Can be changed per article."
+msgstr "Önizleme sayfasında varsayılan olarak seçili gelecek konu alanlarını belirleyin. Makale bazında değiştirilebilir."
 
 msgid "plugins.importexport.trdizin.settings.saved"
-msgstr "Settings saved."
+msgstr "Ayarlar kaydedildi."
 
 msgid "plugins.importexport.trdizin.export"
-msgstr "Export"
+msgstr "Dışa Aktar"
 
 msgid "plugins.importexport.trdizin.issues.title"
-msgstr "Published Issues"
+msgstr "Yayınlanmış Sayılar"
 
 msgid "plugins.importexport.trdizin.issues.issue"
-msgstr "Issue"
+msgstr "Sayı"
 
 msgid "plugins.importexport.trdizin.issues.volume"
-msgstr "Volume"
+msgstr "Cilt"
 
 msgid "plugins.importexport.trdizin.issues.number"
-msgstr "Number"
+msgstr "Sayı No"
 
 msgid "plugins.importexport.trdizin.issues.datePublished"
-msgstr "Publication Date"
+msgstr "Yayın Tarihi"
 
 msgid "plugins.importexport.trdizin.issues.numArticles"
-msgstr "Articles"
+msgstr "Makale Sayısı"
 
 msgid "plugins.importexport.trdizin.issues.preview"
-msgstr "Preview"
+msgstr "Önizle"
 
 msgid "plugins.importexport.trdizin.issues.noIssues"
-msgstr "No published issues found."
+msgstr "Yayınlanmış sayı bulunamadı."
 
 msgid "plugins.importexport.trdizin.preview.title"
-msgstr "TRDizin JSON Preview"
+msgstr "TRDizin JSON Önizleme"
 
 msgid "plugins.importexport.trdizin.preview.issueTitle"
-msgstr "Volume {$volume}, Issue {$number}"
+msgstr "Cilt {$volume}, Sayı {$number}"
 
 msgid "plugins.importexport.trdizin.preview.downloadJson"
-msgstr "Download JSON"
+msgstr "JSON İndir"
 
 msgid "plugins.importexport.trdizin.preview.backToList"
-msgstr "Back to Issue List"
+msgstr "Sayı Listesine Dön"
 
 msgid "plugins.importexport.trdizin.preview.articleCount"
-msgstr "This issue contains {$count} article(s)."
+msgstr "Bu sayıda {$count} makale bulunmaktadır."
 
 msgid "plugins.importexport.trdizin.preview.warningCount"
-msgstr "{$count} warning(s) found. You can update missing data from the OJS dashboard."
+msgstr "{$total} uyarı bulundu. Eksik verileri OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.preview.noWarnings"
-msgstr "All data is complete."
+msgstr "Tüm veriler eksiksiz."
 
 msgid "plugins.importexport.trdizin.preview.abstract"
-msgstr "Abstract"
+msgstr "Özet"
 
 msgid "plugins.importexport.trdizin.preview.keywords"
-msgstr "Keywords"
+msgstr "Anahtar Kelimeler"
 
 msgid "plugins.importexport.trdizin.preview.authors"
-msgstr "Authors"
+msgstr "Yazarlar"
 
 msgid "plugins.importexport.trdizin.preview.articleLanguage"
-msgstr "Article Language"
+msgstr "Makale Dili"
 
 msgid "plugins.importexport.trdizin.preview.articleType"
-msgstr "Article Type"
+msgstr "Makale Türü"
 
 msgid "plugins.importexport.trdizin.preview.subjectAreas"
-msgstr "Subject Areas"
+msgstr "Konu Alanları"
 
 msgid "plugins.importexport.trdizin.preview.subjectAreasHelp"
-msgstr "Hold Ctrl to select multiple"
+msgstr "Ctrl tuşu ile çoklu seçim"
 
 msgid "plugins.importexport.trdizin.preview.doi"
 msgstr "DOI / Publication Number"
 
 msgid "plugins.importexport.trdizin.preview.pdfUrl"
-msgstr "Article PDF URL"
+msgstr "Makale PDF URL"
 
 msgid "plugins.importexport.trdizin.preview.references"
-msgstr "References"
+msgstr "Referanslar"
 
 msgid "plugins.importexport.trdizin.preview.pages"
-msgstr "Pages"
+msgstr "Sayfalar"
 
 msgid "plugins.importexport.trdizin.preview.language"
-msgstr "Language"
+msgstr "Dil"
 
 msgid "plugins.importexport.trdizin.preview.institution"
-msgstr "Institution"
+msgstr "Kurum"
 
 msgid "plugins.importexport.trdizin.preview.noArticles"
-msgstr "No published articles found in this issue."
+msgstr "Bu sayıda yayınlanmış makale bulunamadı."
 
 msgid "plugins.importexport.trdizin.preview.selected"
-msgstr "Selected"
+msgstr "Seçili"
 
 msgid "plugins.importexport.trdizin.preview.selectAll"
-msgstr "Select All"
+msgstr "Tümünü Seç"
 
 msgid "plugins.importexport.trdizin.preview.downloadSelected"
-msgstr "Download Selected"
+msgstr "Seçilenleri İndir"
 
 msgid "plugins.importexport.trdizin.preview.downloadAll"
-msgstr "Download All"
+msgstr "Tümünü İndir"
 
 msgid "plugins.importexport.trdizin.preview.openArticlePage"
-msgstr "Open article page"
+msgstr "Makale sayfasını aç"
 
 msgid "plugins.importexport.trdizin.warning.orcidMissing"
-msgstr "ORCID missing for {$authorName}. Please update from the OJS dashboard."
+msgstr "{$authorName} için ORCID bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.affiliationMissing"
-msgstr "Affiliation missing for {$authorName}. Please update from the OJS dashboard."
+msgstr "{$authorName} için kurum bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.pdfMissing"
-msgstr "PDF galley not found. Please add from the OJS dashboard."
+msgstr "PDF galley bulunamadı. OJS panelinden ekleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.abstractMissing"
-msgstr "Abstract is missing. Please update from the OJS dashboard."
+msgstr "Makale özeti eksik. OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.keywordsMissing"
-msgstr "Keywords are missing. Please update from the OJS dashboard."
+msgstr "Anahtar kelimeler eksik. OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.doiMissing"
-msgstr "DOI is missing. Please update from the OJS dashboard."
+msgstr "DOI bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.referencesMissing"
-msgstr "References not found. Please add from the OJS dashboard."
+msgstr "Kaynakça bilgisi bulunamadı. OJS panelinden ekleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.pagesMissing"
-msgstr "Page numbers are missing. Please update from the OJS dashboard."
+msgstr "Sayfa bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.preview.warningType.abstract"
-msgstr "Missing abstracts"
+msgstr "Özet eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.keywords"
-msgstr "Missing keywords"
+msgstr "Anahtar kelime eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.pages"
-msgstr "Missing page numbers"
+msgstr "Sayfa numarası eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.doi"
-msgstr "Missing DOI"
+msgstr "DOI eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.orcid"
-msgstr "Missing ORCID"
+msgstr "ORCID eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.affiliation"
-msgstr "Missing affiliations"
+msgstr "Kurum bilgisi eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.pdf"
-msgstr "Missing PDF files"
+msgstr "PDF eksik"
 
 msgid "plugins.importexport.trdizin.preview.warningType.references"
-msgstr "Missing references"
+msgstr "Kaynakça eksik"
 
 msgid "plugins.importexport.trdizin.type.RESEARCH"
-msgstr "Research Article"
+msgstr "Araştırma Makalesi"
 
 msgid "plugins.importexport.trdizin.type.COMPILATION"
-msgstr "Review"
+msgstr "Derleme"
 
 msgid "plugins.importexport.trdizin.type.FACT_PRESENTATION"
-msgstr "Case Report"
+msgstr "Olgu Sunumu"
 
 msgid "plugins.importexport.trdizin.type.OTHER"
-msgstr "Other"
+msgstr "Diğer"
 
 msgid "plugins.importexport.trdizin.type.BOOK_PRESENTATION"
-msgstr "Book Review"
+msgstr "Kitap Tanıtımı"
 
 msgid "plugins.importexport.trdizin.type.CORRECTION"
-msgstr "Correction"
+msgstr "Düzeltme"
 
 msgid "plugins.importexport.trdizin.type.EDITORIAL"
-msgstr "Editorial"
+msgstr "Editoryal"
 
 msgid "plugins.importexport.trdizin.type.LETTER"
-msgstr "Letter"
+msgstr "Mektup"
 
 msgid "plugins.importexport.trdizin.type.LETTER_TO_EDITOR"
-msgstr "Letter to the Editor"
+msgstr "Editöre Mektup"
 
 msgid "plugins.importexport.trdizin.type.MEETING_SUMMARY"
-msgstr "Meeting Abstracts"
+msgstr "Toplantı Özetleri"
 
 msgid "plugins.importexport.trdizin.type.REPORT"
-msgstr "Report"
+msgstr "Bildiri"
 
 msgid "plugins.importexport.trdizin.type.SHOR_REPORT"
-msgstr "Short Report"
+msgstr "Kısa Bildiri"
 
 msgid "plugins.importexport.trdizin.type.TRANSLATION"
-msgstr "Translation"
+msgstr "Çeviri"
 
 msgid "plugins.importexport.trdizin.type.RETRACTED"
-msgstr "Retracted"
+msgstr "Geri Çekilmiş"
 
 msgid "plugins.importexport.trdizin.type.NOTE"
-msgstr "Note"
+msgstr "Not"
 
 msgid "plugins.importexport.trdizin.cliUsage"
 msgstr ""
-"Usage:\n"
+"Kullanım:\n"
 "{$scriptName} {$pluginName} export [jsonFileName] [journal_path] "
 "issueId\n"

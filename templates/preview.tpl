@@ -46,7 +46,7 @@
 				<div class="trd-st-ico trd-st-ico--w">&#9888;</div>
 				<div>
 					<div class="trd-st-val">{$totalWarnings}</div>
-					<div class="trd-st-lbl">{translate key="plugins.importexport.trdizin.preview.warningCount" count=$totalWarnings}</div>
+					<div class="trd-st-lbl">{translate key="plugins.importexport.trdizin.preview.warningCount" total=$totalWarnings}</div>
 				</div>
 			</div>
 		{else}
@@ -109,7 +109,7 @@
 						{* Warnings *}
 						{if !empty($article.warnings)}
 							<div class="trd-warns">
-								<div class="trd-warns-hd">&#9888; {$article.warnings|@count} {translate key="plugins.importexport.trdizin.preview.warningCount" count=$article.warnings|@count}</div>
+								<div class="trd-warns-hd">&#9888; {$article.warnings|@count} {translate key="plugins.importexport.trdizin.preview.warningCount" total=$article.warnings|@count}</div>
 								{foreach from=$article.warnings item=warning}
 									<div class="trd-wi">&#8226; {$warning|escape}</div>
 								{/foreach}

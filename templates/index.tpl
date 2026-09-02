@@ -33,7 +33,7 @@
 		{* Settings Tab *}
 		<div id="settings-tab">
 			<div class="trd-content-card">
-				{capture assign=trdizinSettingsGridUrl}{url router=$smarty.const.ROUTE_COMPONENT component="grid.settings.plugins.settingsPluginGridHandler" op="manage" plugin="TRDizinExportPlugin" category="importexport" verb="index" escape=false}{/capture}
+				{capture assign=trdizinSettingsGridUrl}{url router=PKP\core\PKPApplication::ROUTE_COMPONENT component="grid.settings.plugins.SettingsPluginGridHandler" op="manage" plugin="TRDizinExportPlugin" category="importexport" verb="index" escape=false}{/capture}
 				{load_url_in_div id="trdizinSettingsGridContainer" url=$trdizinSettingsGridUrl}
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 									<td>{$issue.title|escape}</td>
 									<td>{$issue.volume|escape}</td>
 									<td>{$issue.number|escape}</td>
-									<td>{$issue.datePublished|date_format:"%Y-%m-%d"}</td>
+									<td>{$issue.datePublished|date_format:"Y-m-d"}</td>
 									<td>{$issue.numArticles|escape}</td>
 									<td>
 										<a href="{plugin_url path="preview" issueId=$issue.id}" class="pkp_button">

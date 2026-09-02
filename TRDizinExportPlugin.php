@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file plugins/importexport/trdizin/TRDizinExportPlugin.inc.php
+ * @file plugins/importexport/trdizin/TRDizinExportPlugin.php
  *
  * TRDizin JSON Export Plugin for OJS
  *
@@ -11,7 +11,21 @@
  * @brief TRDizin JSON export plugin
  */
 
-import('lib.pkp.classes.plugins.ImportExportPlugin');
+namespace APP\plugins\importexport\trdizin;
+
+use APP\core\Application;
+use APP\facades\Repo;
+use APP\notification\NotificationManager;
+use APP\plugins\PubObjectCache;
+use APP\template\TemplateManager;
+use PKP\core\JSONMessage;
+use PKP\core\PKPApplication;
+use PKP\core\PKPString;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\notification\Notification;
+use PKP\plugins\ImportExportPlugin;
+use PKP\submission\PKPSubmission;
 
 class TRDizinExportPlugin extends ImportExportPlugin {
 
@@ -53,8 +67,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 	 * @return PubObjectCache
 	 */
 	function getCache() {
-		if (!is_a($this->_cache, 'PubObjectCache')) {
-			import('classes.plugins.PubObjectCache');
+		if (!is_a($this->_cache, PubObjectCache::class)) {
 			$this->_cache = new PubObjectCache();
 		}
 		return $this->_cache;
@@ -93,17 +106,19 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 		);
 
 		// Get published issues
-		$issueDao = DAORegistry::getDAO('IssueDAO');
-		$issues = $issueDao->getPublishedIssues($context->getId());
+		$issues = Repo::issue()->getCollector()
+			->filterByContextIds(array($context->getId()))
+			->filterByPublished(true)
+			->getMany();
 		$issueData = array();
-		while ($issue = $issues->next()) {
-			// Count published articles in this issue using Services API
-			$submissionsIterator = Services::get('submission')->getMany(array(
-				'contextId' => $context->getId(),
-				'issueIds' => $issue->getId(),
-				'status' => STATUS_PUBLISHED,
-			));
-			$articleCount = count(iterator_to_array($submissionsIterator));
+		foreach ($issues as $issue) {
+			// Count published articles in this issue
+			$submissionsIterator = Repo::submission()->getCollector()
+				->filterByContextIds(array($context->getId()))
+				->filterByIssueIds(array($issue->getId()))
+				->filterByStatus(array(PKPSubmission::STATUS_PUBLISHED))
+				->getMany();
+			$articleCount = $submissionsIterator->count();
 
 			$issueData[] = array(
 				'id' => $issue->getId(),
@@ -128,8 +143,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			return;
 		}
 
-		$issueDao = DAORegistry::getDAO('IssueDAO');
-		$issue = $issueDao->getById($issueId, $context->getId());
+		$issue = Repo::issue()->get($issueId, $context->getId());
 		if (!$issue) {
 			$request->redirect(null, null, null, array('plugin', $this->getName()));
 			return;
@@ -230,17 +244,16 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 	function getArticlesDataForIssue($request, $context, $issue, $sectionMapping) {
 		$articlesData = array();
 
-		// Get submissions for this issue using Services API (efficient query)
-		$submissionsIterator = Services::get('submission')->getMany(array(
-			'contextId' => $context->getId(),
-			'issueIds' => $issue->getId(),
-			'status' => STATUS_PUBLISHED,
-		));
+		// Get submissions for this issue
+		$submissionsIterator = Repo::submission()->getCollector()
+			->filterByContextIds(array($context->getId()))
+			->filterByIssueIds(array($issue->getId()))
+			->filterByStatus(array(PKPSubmission::STATUS_PUBLISHED))
+			->getMany();
 
 		$citationDao = DAORegistry::getDAO('CitationDAO');
-		$keywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
 
-		$supportedLocales = array_keys(AppLocale::getSupportedFormLocales());
+		$supportedLocales = array_keys(Locale::getSupportedFormLocales());
 		$articleIndex = 0;
 
 		foreach ($submissionsIterator as $submission) {
@@ -265,7 +278,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			// Title and abstract per locale
 			$titles = (array) $publication->getFullTitles();
 			$abstracts = (array) $publication->getData('abstract');
-			$keywords = $keywordDao->getKeywords($publication->getId(), $supportedLocales);
+			$keywords = (array) $publication->getData('keywords');
 
 			// Check abstract
 			if (empty($abstracts[$locale])) {
@@ -295,11 +308,13 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			}
 
 			// Authors
-			$authors = (array) $publication->getData('authors');
+			$authors = Repo::author()->getCollector()
+				->filterByPublicationIds(array($publication->getId()))
+				->getMany();
 			$authorsData = array();
 			foreach ($authors as $author) {
 				$authorName = $author->getFullName(false);
-				$affiliation = $author->getAffiliation($locale);
+				$affiliation = $author->getLocalizedAffiliationNamesAsString($locale);
 				$orcid = $author->getData('orcid');
 
 				if (empty($orcid)) {
@@ -342,20 +357,17 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			// References
 			$citations = $citationDao->getByPublicationId($publication->getId());
 			$referencesData = array();
-			if ($citations) {
-				$citationArray = $citations->toAssociativeArray();
-				$refOrder = 1;
-				foreach ($citationArray as $citation) {
-					$cleanedText = $this->cleanReferenceText($citation->getRawCitation(), $refOrder);
-					if ($cleanedText === null) {
-						continue;
-					}
-					$referencesData[] = array(
-						'text' => $cleanedText,
-						'order' => $refOrder,
-					);
-					$refOrder++;
+			$refOrder = 1;
+			foreach ($citations as $citation) {
+				$cleanedText = $this->cleanReferenceText($citation->getRawCitation(), $refOrder);
+				if ($cleanedText === null) {
+					continue;
 				}
+				$referencesData[] = array(
+					'text' => $cleanedText,
+					'order' => $refOrder,
+				);
+				$refOrder++;
 			}
 			if (empty($referencesData)) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.referencesMissing');
@@ -393,7 +405,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			$articlesData[] = array(
 				'index' => $articleIndex,
 				'submissionId' => $submission->getId(),
-				'title' => $submission->getLocalizedTitle(),
+				'title' => $publication->getLocalizedTitle(),
 				'locale' => $locale,
 				'languageId' => $languageId,
 				'startPage' => $startPage,
@@ -426,8 +438,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			return;
 		}
 
-		$issueDao = DAORegistry::getDAO('IssueDAO');
-		$issue = $issueDao->getById($issueId, $context->getId());
+		$issue = Repo::issue()->get($issueId, $context->getId());
 		if (!$issue) {
 			$request->redirect(null, null, null, array('plugin', $this->getName()));
 			return;
@@ -498,8 +509,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 		$context = $request->getContext();
 		$notificationManager = new NotificationManager();
 
-		$this->import('classes.form.TRDizinSettingsForm');
-		$form = new TRDizinSettingsForm($this, $context->getId());
+		$form = new \APP\plugins\importexport\trdizin\classes\form\TRDizinSettingsForm($this, $context->getId());
 
 		switch ($request->getUserVar('verb')) {
 			case 'save':
@@ -508,7 +518,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 					$form->execute();
 					$notificationManager->createTrivialNotification(
 						$user->getId(),
-						NOTIFICATION_TYPE_SUCCESS,
+						Notification::NOTIFICATION_TYPE_SUCCESS,
 						array('contents' => __('plugins.importexport.trdizin.settings.saved'))
 					);
 					return new JSONMessage(true);
@@ -542,7 +552,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 		}
 
 		$dispatcher = $this->_request->getDispatcher();
-		return $dispatcher->url($this->_request, ROUTE_PAGE, null, 'management', 'importexport',
+		return $dispatcher->url($this->_request, PKPApplication::ROUTE_PAGE, null, 'management', 'importexport',
 			$path, $queryParams
 		);
 	}
@@ -899,8 +909,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			return;
 		}
 
-		$issueDao = DAORegistry::getDAO('IssueDAO');
-		$issue = $issueDao->getById($issueId, $journal->getId());
+		$issue = Repo::issue()->get($issueId, $journal->getId());
 		if (!$issue) {
 			echo "Error: Issue not found with ID: {$issueId}\n";
 			return;
