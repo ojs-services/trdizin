@@ -60,6 +60,14 @@
 		{/if}
 	</div>
 
+	{if !empty($warningBreakdown)}
+		<div class="trd-warn-breakdown">
+			{foreach from=$warningBreakdown item=item}
+				<span class="trd-warn-chip"><b>{$item.count}</b> {$item.label|escape}</span>
+			{/foreach}
+		</div>
+	{/if}
+
 	{if empty($articlesData)}
 		<div class="trd-empty">
 			<p>{translate key="plugins.importexport.trdizin.preview.noArticles"}</p>
@@ -81,6 +89,9 @@
 						<div class="trd-card-tw">
 							<h3 class="trd-card-t">{$article.title|escape}</h3>
 						</div>
+						<a href="{$article.articleUrl|escape}" target="_blank" rel="noopener" class="trd-card-open" title="{translate key="plugins.importexport.trdizin.preview.openArticlePage"}">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+						</a>
 					</div>
 
 					{* Meta Pills *}

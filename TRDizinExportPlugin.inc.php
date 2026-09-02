@@ -84,10 +84,11 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 	 * Display the main index page with issue list and settings.
 	 */
 	function displayIndex($request, $context, $templateMgr) {
-		// Load global CSS
+		// Load global CSS (cache-busted with the plugin version)
+		$assetVersion = $this->getCurrentVersion() ? $this->getCurrentVersion()->getVersionString() : time();
 		$templateMgr->addStyleSheet(
 			'trdizinGlobal',
-			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/styles/trdizin.css',
+			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/styles/trdizin.css?v=' . $assetVersion,
 			array('contexts' => array('backend'))
 		);
 
@@ -141,28 +142,66 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 		// Get articles for this issue
 		$articlesData = $this->getArticlesDataForIssue($request, $context, $issue, $sectionMapping);
 
-		// Count total warnings
+		// Count total warnings and break them down by type
 		$totalWarnings = 0;
+		$warningCountsByType = array(
+			'abstract' => 0,
+			'keywords' => 0,
+			'pages' => 0,
+			'doi' => 0,
+			'orcid' => 0,
+			'affiliation' => 0,
+			'pdf' => 0,
+			'references' => 0,
+		);
 		foreach ($articlesData as $article) {
 			$totalWarnings += count($article['warnings']);
+			foreach ($article['warningCounts'] as $type => $count) {
+				$warningCountsByType[$type] += $count;
+			}
 		}
 
-		// Load CSS
+		$warningTypeLabels = array(
+			'abstract' => __('plugins.importexport.trdizin.preview.warningType.abstract'),
+			'keywords' => __('plugins.importexport.trdizin.preview.warningType.keywords'),
+			'pages' => __('plugins.importexport.trdizin.preview.warningType.pages'),
+			'doi' => __('plugins.importexport.trdizin.preview.warningType.doi'),
+			'orcid' => __('plugins.importexport.trdizin.preview.warningType.orcid'),
+			'affiliation' => __('plugins.importexport.trdizin.preview.warningType.affiliation'),
+			'pdf' => __('plugins.importexport.trdizin.preview.warningType.pdf'),
+			'references' => __('plugins.importexport.trdizin.preview.warningType.references'),
+		);
+		$warningBreakdown = array();
+		foreach ($warningCountsByType as $type => $count) {
+			if ($count > 0) {
+				$warningBreakdown[] = array(
+					'label' => $warningTypeLabels[$type],
+					'count' => $count,
+				);
+			}
+		}
+		usort($warningBreakdown, function ($a, $b) {
+			return $b['count'] - $a['count'];
+		});
+
+		// Load CSS (cache-busted with the plugin version so upgrades aren't
+		// served stale CSS/JS from the browser cache)
+		$assetVersion = $this->getCurrentVersion() ? $this->getCurrentVersion()->getVersionString() : time();
 		$baseStyleUrl = $request->getBaseUrl() . '/' . $this->getPluginPath() . '/styles/';
 		$templateMgr->addStyleSheet(
 			'trdizinGlobal',
-			$baseStyleUrl . 'trdizin.css',
+			$baseStyleUrl . 'trdizin.css?v=' . $assetVersion,
 			array('contexts' => array('backend'))
 		);
 		$templateMgr->addStyleSheet(
 			'trdizinPreview',
-			$baseStyleUrl . 'preview.css',
+			$baseStyleUrl . 'preview.css?v=' . $assetVersion,
 			array('contexts' => array('backend'))
 		);
 
 		$templateMgr->addJavaScript(
 			'trdizinPreview',
-			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/preview.js',
+			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/preview.js?v=' . $assetVersion,
 			array('contexts' => array('backend'))
 		);
 
@@ -170,6 +209,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			'issue' => $issue,
 			'articlesData' => $articlesData,
 			'totalWarnings' => $totalWarnings,
+			'warningBreakdown' => $warningBreakdown,
 			'publicationTypeOptions' => $this->getPublicationTypeOptions(),
 			'trdizinSubjects' => $this->getTRDizinSubjects(),
 			'defaultSubjectIds' => $defaultSubjectIds,
@@ -210,6 +250,16 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			}
 
 			$warnings = array();
+			$warningCounts = array(
+				'abstract' => 0,
+				'keywords' => 0,
+				'pages' => 0,
+				'doi' => 0,
+				'orcid' => 0,
+				'affiliation' => 0,
+				'pdf' => 0,
+				'references' => 0,
+			);
 			$locale = $publication->getData('locale');
 
 			// Title and abstract per locale
@@ -220,11 +270,13 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			// Check abstract
 			if (empty($abstracts[$locale])) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.abstractMissing');
+				$warningCounts['abstract']++;
 			}
 
 			// Check keywords
 			if (empty($keywords[$locale])) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.keywordsMissing');
+				$warningCounts['keywords']++;
 			}
 
 			// Pages
@@ -232,12 +284,14 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			$endPage = $publication->getEndingPage();
 			if (empty($startPage)) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.pagesMissing');
+				$warningCounts['pages']++;
 			}
 
 			// DOI
 			$doi = $publication->getStoredPubId('doi');
 			if (empty($doi)) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.doiMissing');
+				$warningCounts['doi']++;
 			}
 
 			// Authors
@@ -250,9 +304,11 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 
 				if (empty($orcid)) {
 					$warnings[] = __('plugins.importexport.trdizin.warning.orcidMissing', array('authorName' => $authorName));
+					$warningCounts['orcid']++;
 				}
 				if (empty($affiliation)) {
 					$warnings[] = __('plugins.importexport.trdizin.warning.affiliationMissing', array('authorName' => $authorName));
+					$warningCounts['affiliation']++;
 				}
 
 				$authorsData[] = array(
@@ -277,7 +333,11 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 			}
 			if (empty($pdfUrl)) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.pdfMissing');
+				$warningCounts['pdf']++;
 			}
+
+			// Article landing page URL
+			$articleUrl = $request->url(null, 'article', 'view', array($submission->getBestId()));
 
 			// References
 			$citations = $citationDao->getByPublicationId($publication->getId());
@@ -286,14 +346,20 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 				$citationArray = $citations->toAssociativeArray();
 				$refOrder = 1;
 				foreach ($citationArray as $citation) {
+					$cleanedText = $this->cleanReferenceText($citation->getRawCitation(), $refOrder);
+					if ($cleanedText === null) {
+						continue;
+					}
 					$referencesData[] = array(
-						'text' => $citation->getRawCitation(),
-						'order' => $refOrder++,
+						'text' => $cleanedText,
+						'order' => $refOrder,
 					);
+					$refOrder++;
 				}
 			}
 			if (empty($referencesData)) {
 				$warnings[] = __('plugins.importexport.trdizin.warning.referencesMissing');
+				$warningCounts['references']++;
 			}
 
 			// Section -> publication type mapping
@@ -334,6 +400,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 				'endPage' => $endPage,
 				'doi' => $doi,
 				'pdfUrl' => $pdfUrl,
+				'articleUrl' => $articleUrl,
 				'authors' => $authorsData,
 				'abstractContents' => $abstractContents,
 				'references' => $referencesData,
@@ -341,6 +408,7 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 				'sectionId' => $sectionId,
 				'supportingAgencies' => $supportingAgencies,
 				'warnings' => $warnings,
+				'warningCounts' => $warningCounts,
 			);
 			$articleIndex++;
 		}
@@ -484,6 +552,43 @@ class TRDizinExportPlugin extends ImportExportPlugin {
 	 */
 	function getPluginSettingsPrefix() {
 		return 'trdizin';
+	}
+
+	/**
+	 * Clean a raw citation string of leftover manual list numbering.
+	 *
+	 * Authors often paste their reference list with the numbering still
+	 * attached (e.g. "1) Smith J...", "2. Jones K...", "1- Doe A..."), and
+	 * a stray "References:" heading sometimes ends up as its own entry.
+	 * Since order is already tracked separately, this leftover text causes
+	 * a visible double numbering. A numeric marker is stripped only when it
+	 * matches the citation's own sequence position, so citations that
+	 * legitimately start with a number (a year, a code) are left untouched.
+	 *
+	 * @param $rawText string
+	 * @param $order int 1-based position of this citation in the list
+	 * @return string|null Cleaned text, or null if the line is just a heading and should be dropped
+	 */
+	function cleanReferenceText($rawText, $order) {
+		$text = trim((string) $rawText);
+		if ($text === '') {
+			return null;
+		}
+
+		// Drop stray section headings that sometimes get pasted as their own line.
+		if (preg_match('/^(references?|kaynak(ç|c)a|kaynaklar|bibliography)\s*:?\s*$/iu', $text)) {
+			return null;
+		}
+
+		// Strip a leading list marker ("1)", "1.", "1-", "(1)", "[1]") only if
+		// its number matches this citation's own position in the list.
+		if (preg_match('/^\(?\[?(\d{1,3})[\.\)\]\-]\s*/u', $text, $matches)) {
+			if ((int) $matches[1] === (int) $order) {
+				$text = ltrim(substr($text, strlen($matches[0])));
+			}
+		}
+
+		return $text;
 	}
 
 	/**

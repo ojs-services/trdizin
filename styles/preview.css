@@ -101,6 +101,19 @@
 .trd-sel-all input { cursor: pointer; }
 .trd-sel-all span { white-space: nowrap; }
 
+/* Warning breakdown */
+.trd-warn-breakdown {
+	display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+	margin: -12px 0 24px;
+}
+.trd-warn-chip {
+	display: inline-flex; align-items: center; gap: 5px;
+	font-size: 12px; font-weight: 500; color: #7d6608;
+	background: var(--warnbg); border: 1px solid #f9e79f;
+	border-radius: 20px; padding: 4px 12px;
+}
+.trd-warn-chip b { color: #7d6608; font-weight: 700; }
+
 /* Card */
 .trd-card {
 	background: var(--wh);
@@ -154,6 +167,15 @@
 	line-height: 1.45; color: var(--tx); margin: 0;
 	word-wrap: break-word;
 }
+.trd-card-open {
+	display: flex; align-items: center; justify-content: center;
+	width: 40px; flex-shrink: 0;
+	color: var(--tx2);
+	border-left: 1px solid var(--bd2);
+	transition: background .15s, color .15s;
+}
+.trd-card-open svg { width: 18px; height: 18px; }
+.trd-card-open:hover { background: var(--c1bg); color: var(--c1); }
 
 /* Meta Pills */
 .trd-meta {

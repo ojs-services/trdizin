@@ -16,6 +16,7 @@ The exported JSON contains all fields required by TRDizin, including `publicatio
 
 | OJS Version | Plugin Version | Status |
 |-------------|---------------|--------|
+| 3.3.x       | 1.1.1         | Supported |
 | 3.3.x       | 1.1.0         | Supported |
 | 3.3.x       | 1.0.0         | Supported |
 
@@ -30,7 +31,7 @@ The exported JSON contains all fields required by TRDizin, including `publicatio
 - **Multi-language support** for abstracts and keywords (Turkish, English, and 10 more languages)
 - **15 publication types** covering all TRDizin-recognized categories
 - **Automatic PDF galley URL detection** from OJS galley files
-- **Reference extraction** from OJS citation database
+- **Reference extraction** from OJS citation database, with automatic cleanup of leftover manual numbering (e.g. "1)", "1.", "1-") and stray "References" heading lines
 - **Command-line interface (CLI)** for automated and batch export workflows
 - **Bilingual interface** with full Turkish and English localization
 - **CSRF protection, input validation, and XSS prevention** built in

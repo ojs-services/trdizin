@@ -146,6 +146,9 @@ msgstr "Download Selected"
 msgid "plugins.importexport.trdizin.preview.downloadAll"
 msgstr "Download All"
 
+msgid "plugins.importexport.trdizin.preview.openArticlePage"
+msgstr "Open article page"
+
 msgid "plugins.importexport.trdizin.warning.orcidMissing"
 msgstr "ORCID missing for {$authorName}. Please update from the OJS dashboard."
 
@@ -169,6 +172,30 @@ msgstr "References not found. Please add from the OJS dashboard."
 
 msgid "plugins.importexport.trdizin.warning.pagesMissing"
 msgstr "Page numbers are missing. Please update from the OJS dashboard."
+
+msgid "plugins.importexport.trdizin.preview.warningType.abstract"
+msgstr "Missing abstracts"
+
+msgid "plugins.importexport.trdizin.preview.warningType.keywords"
+msgstr "Missing keywords"
+
+msgid "plugins.importexport.trdizin.preview.warningType.pages"
+msgstr "Missing page numbers"
+
+msgid "plugins.importexport.trdizin.preview.warningType.doi"
+msgstr "Missing DOI"
+
+msgid "plugins.importexport.trdizin.preview.warningType.orcid"
+msgstr "Missing ORCID"
+
+msgid "plugins.importexport.trdizin.preview.warningType.affiliation"
+msgstr "Missing affiliations"
+
+msgid "plugins.importexport.trdizin.preview.warningType.pdf"
+msgstr "Missing PDF files"
+
+msgid "plugins.importexport.trdizin.preview.warningType.references"
+msgstr "Missing references"
 
 msgid "plugins.importexport.trdizin.type.RESEARCH"
 msgstr "Research Article"

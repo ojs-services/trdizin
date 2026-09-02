@@ -146,6 +146,9 @@ msgstr "Seçilenleri İndir"
 msgid "plugins.importexport.trdizin.preview.downloadAll"
 msgstr "Tümünü İndir"
 
+msgid "plugins.importexport.trdizin.preview.openArticlePage"
+msgstr "Makale sayfasını aç"
+
 msgid "plugins.importexport.trdizin.warning.orcidMissing"
 msgstr "{$authorName} için ORCID bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
 
@@ -169,6 +172,30 @@ msgstr "Kaynakça bilgisi bulunamadı. OJS panelinden ekleyebilirsiniz."
 
 msgid "plugins.importexport.trdizin.warning.pagesMissing"
 msgstr "Sayfa bilgisi eksik. OJS panelinden güncelleyebilirsiniz."
+
+msgid "plugins.importexport.trdizin.preview.warningType.abstract"
+msgstr "Özet eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.keywords"
+msgstr "Anahtar kelime eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.pages"
+msgstr "Sayfa numarası eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.doi"
+msgstr "DOI eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.orcid"
+msgstr "ORCID eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.affiliation"
+msgstr "Kurum bilgisi eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.pdf"
+msgstr "PDF eksik"
+
+msgid "plugins.importexport.trdizin.preview.warningType.references"
+msgstr "Kaynakça eksik"
 
 msgid "plugins.importexport.trdizin.type.RESEARCH"
 msgstr "Araştırma Makalesi"

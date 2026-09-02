@@ -16,6 +16,7 @@ Dışa aktarılan JSON, TRDizin'in gerektirdiği tüm alanları içerir: çok di
 
 | OJS Sürümü | Eklenti Sürümü | Durum |
 |------------|---------------|-------|
+| 3.3.x      | 1.1.1         | Destekleniyor |
 | 3.3.x      | 1.1.0         | Destekleniyor |
 | 3.3.x      | 1.0.0         | Destekleniyor |
 
@@ -30,7 +31,7 @@ Dışa aktarılan JSON, TRDizin'in gerektirdiği tüm alanları içerir: çok di
 - **Çok dilli destek** — özetler ve anahtar kelimeler için (Türkçe, İngilizce ve 10 ek dil)
 - **15 yayın türü** — TRDizin tarafından tanınan tüm kategorileri kapsar
 - **Otomatik PDF galley URL tespiti** — OJS galley dosyalarından
-- **Kaynakça çıkarımı** — OJS atıf veritabanından
+- **Kaynakça çıkarımı** — OJS atıf veritabanından; elle girilmiş kalıntı numaralandırma ("1)", "1.", "1-" gibi) ve başlı başına kalan "Kaynakça" satırları otomatik temizlenir
 - **Komut satırı arayüzü (CLI)** — otomatik ve toplu dışa aktarma iş akışları için
 - **İki dilli arayüz** — tam Türkçe ve İngilizce yerelleştirme
 - **CSRF koruması, girdi doğrulama ve XSS önleme** yerleşik

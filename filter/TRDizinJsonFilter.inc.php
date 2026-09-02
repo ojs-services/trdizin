@@ -120,10 +120,15 @@ class TRDizinJsonFilter extends NativeImportExportFilter {
 			$citationArray = $citations->toAssociativeArray();
 			$refOrder = 1;
 			foreach ($citationArray as $citation) {
+				$cleanedText = $plugin->cleanReferenceText($citation->getRawCitation(), $refOrder);
+				if ($cleanedText === null) {
+					continue;
+				}
 				$article['publicationReferences'][] = array(
-					'referenceFullText' => $citation->getRawCitation(),
-					'referenceOrder' => $refOrder++,
+					'referenceFullText' => $cleanedText,
+					'referenceOrder' => $refOrder,
 				);
+				$refOrder++;
 			}
 		}
 
