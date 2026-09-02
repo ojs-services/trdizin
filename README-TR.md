@@ -14,11 +14,14 @@ Dışa aktarılan JSON, TRDizin'in gerektirdiği tüm alanları içerir: çok di
 
 ## Uyumluluk
 
-| OJS Sürümü | Eklenti Sürümü | Durum |
-|------------|---------------|-------|
-| 3.3.x      | 1.1.1         | Destekleniyor |
-| 3.3.x      | 1.1.0         | Destekleniyor |
-| 3.3.x      | 1.0.0         | Destekleniyor |
+Bu sürümden itibaren eklenti sürüm numarası, hedeflediği OJS sürümünü doğrudan takip eder ve iki hat her zaman birlikte yayınlanır.
+
+| OJS Sürümü | Eklenti Sürümü | Paket |
+|------------|-----------------|-------|
+| 3.5.x      | 3.5.0.0         | `trdizin-3.5-3.5.0.0.tar.gz` |
+| 3.3.x      | 3.3.0.0         | `trdizin-3.3-3.3.0.0.tar.gz` |
+
+Eski sürümler (1.0.0–1.1.1, sadece OJS 3.3) önceki numaralandırma şemasıyla [Releases](../../releases) sayfasında erişilebilir durumda kalır.
 
 ## Özellikler
 

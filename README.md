@@ -14,11 +14,14 @@ The exported JSON contains all fields required by TRDizin, including `publicatio
 
 ## Compatibility
 
-| OJS Version | Plugin Version | Status |
-|-------------|---------------|--------|
-| 3.3.x       | 1.1.1         | Supported |
-| 3.3.x       | 1.1.0         | Supported |
-| 3.3.x       | 1.0.0         | Supported |
+Starting with this release, the plugin's version number tracks the OJS version it targets, and both tracks are released together in lockstep.
+
+| OJS Version | Plugin Version | Package |
+|-------------|-----------------|---------|
+| 3.5.x       | 3.5.0.0         | `trdizin-3.5-3.5.0.0.tar.gz` |
+| 3.3.x       | 3.3.0.0         | `trdizin-3.3-3.3.0.0.tar.gz` |
+
+Older releases (1.0.0–1.1.1, OJS 3.3 only) remain available in [Releases](../../releases) under the previous numbering scheme.
 
 ## Features
 
